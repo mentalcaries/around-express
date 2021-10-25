@@ -13,6 +13,6 @@ app.use("/cards", cardRouter);
 
 app.use("/users", userRouter);
 
-app.use((req,res)=>{
-  res.status(404).send({ "message": "Requested resource not found" })
-})
+app.use((req, res) => {
+  res.status(404).send({ message: "Requested resource not found" });
+});
