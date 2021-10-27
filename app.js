@@ -1,12 +1,14 @@
 const express = require("express");
+const helmet = require("helmet");
 
 const app = express();
+app.use(helmet());
 const { PORT = 3000 } = process.env;
 const userRouter = require("./routes/users");
 const cardRouter = require("./routes/cards");
 
 app.listen(PORT, () => {
-  console.log("Server is serving the servants");
+  console.log("Server is serving");
 });
 
 app.use("/cards", cardRouter);
