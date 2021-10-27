@@ -2,7 +2,5 @@
   "extends": "airbnb-base",
   "rules": {
     "no-underscore-dangle": ["off", { "allow": ["id"] }]
-  },
-"eslint quotes": ["error", "double"],
-"eslint-env":"es6"
+  }
 }
