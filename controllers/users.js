@@ -1,5 +1,6 @@
 const path = require('path');
 const getFileData = require('../utils/readFile');
+const User = require('../models/user');
 
 const dataPath = path.join(path.join(__dirname, '../', 'data', 'users.json'));
 
@@ -20,4 +21,11 @@ const getUserById = (req, res) => {
     });
 };
 
-module.exports = { getUsers, getUserById };
+const createUser = (req, res) => {
+  const { name, about, avatar } = req.body;
+  User.create({ name, about, avatar })
+    .then((user) => res.send({ data: user }))
+    .catch((err) => res.status(400).send({ message: `Invalid user data: ${err}` }));
+};
+
+module.exports = { getUsers, getUserById, createUser };
