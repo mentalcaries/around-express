@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const user = require('./user');
 
-
 const cardSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -14,7 +13,9 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/.test(v);
+        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/.test(
+          v
+        );
       },
     },
     owner: {
@@ -22,11 +23,13 @@ const cardSchema = new mongoose.Schema({
       ref: user,
       required: true,
     },
-    likes: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: user,
-      default: [],
-    }],
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: user,
+        default: [],
+      },
+    ],
     createdAt: {
       type: Date,
       default: Date.now,

@@ -17,7 +17,7 @@ app.listen(PORT, () => {
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '618d2319db63bfd15e2e4b5a',
+    _id: '618bb4f9997ea749959e68c8',
   };
 
   next();
