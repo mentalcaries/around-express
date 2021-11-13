@@ -19,7 +19,7 @@ const createCard = (req, res) => {
     .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Invalid card data' });
+        res.status(400).send({ message: 'Please submit a name and valid URL' });
       }
     });
 };
