@@ -28,4 +28,22 @@ const createUser = (req, res) => {
     .catch((err) => res.status(400).send({ message: `Invalid user data: ${err}` }));
 };
 
-module.exports = { getUsers, getUserById, createUser };
+const updateProfile = (req, res) => {
+  const { name, about } = req.body;
+
+  User.findByIdAndUpdate(req.user._id, { name, about })
+    .then((user) => res.send({ data: user }))
+    .catch((err) => res.status(400).send({ message: `Invalid user data: ${err}` }));
+};
+
+const updateAvatar = (req, res) => {
+  const { avatar } = req.body;
+
+  User.findByIdAndUpdate(req.user._id, { avatar })
+    .then((user) => res.send({ data: user }))
+    .catch((err) => res.status(400).send({ message: `Invalid user data: ${err}` }));
+};
+
+module.exports = {
+  getUsers, getUserById, createUser, updateProfile, updateAvatar,
+};

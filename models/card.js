@@ -13,27 +13,25 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/.test(
-          v
-        );
+        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/.test(v);
       },
     },
-    owner: {
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: user,
+    required: true,
+  },
+  likes: [
+    {
       type: mongoose.Schema.Types.ObjectId,
       ref: user,
-      required: true,
+      default: [],
     },
-    likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: user,
-        default: [],
-      },
-    ],
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
