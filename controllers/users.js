@@ -12,8 +12,10 @@ const getUserById = (req, res) => {
     .orFail()
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(404).send({ message: 'User ID not found' });
+      if (err.name === 'DocumentNotFoundError') {
+        res.status(404).send({ message: 'No User with that ID found' });
+      } else if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Invalid data request' });
       }
     });
 };

@@ -29,6 +29,8 @@ const deleteCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
         res.status(404).send({ message: 'No card with that ID found' });
+      } else if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Invalid data request' });
       }
     });
 };
@@ -42,8 +44,10 @@ const likeCard = (req, res) => {
     .orFail()
     .then((cardData) => res.send({ data: cardData }))
     .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'No card with that ID found' });
+      if (err.name === 'DocumentNotFoundError') {
+        res.status(404).send({ message: 'No card with that ID found' });
+      } else if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Invalid data request' });
       }
     });
 };
@@ -52,14 +56,15 @@ const dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // remove _id from the array
-    { new: true }
+    { new: true },
   )
     .orFail()
     .then((cardData) => res.send({ data: cardData }))
     .catch((err) => {
-      // console.log(err.name)
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'No card with that ID found' });
+      if (err.name === 'DocumentNotFoundError') {
+        res.status(404).send({ message: 'No card with that ID found' });
+      } else if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Invalid data request' });
       }
     });
 };
